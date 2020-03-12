@@ -1,9 +1,9 @@
 pub mod countly_sys;
-pub mod config;
+mod config;
 pub use config::Config;
 
-pub mod countly;
-pub use countly::Countly;
+mod countly;
+pub use countly::{Countly, Value, UserDetails};
 
-pub mod gdpr;
+mod gdpr;
 pub use gdpr::ConsentFeatures;
