@@ -117,7 +117,7 @@ impl Countly {
         }
     }
     
-    /// Resume tracking after a call to [opt_out]
+    /// Resume tracking after a call to [Countly::opt_out]
     /// 
     /// If you want to achieve opt out by default state, combine these methods with initial setting ignore_visitor on Countly init object.
     pub fn opt_in() {
@@ -173,7 +173,7 @@ impl Countly {
     }
 
     /// You can report time or duration with every event by providing dur property of the events object. But if you want, you can
-    /// also let Web SDK to track duration of some specific event for you, you can use [start_event] and [end_event] methods.
+    /// also let Web SDK to track duration of some specific event for you, you can use [Countly::start_event] and [Countly::end_event] methods.
     pub fn start_event(name: &str) {
         Self::queue().push(Array::of2(&JsValue::from_str("start_event"), &JsValue::from_str(name)).unchecked_ref());
     }
@@ -285,7 +285,7 @@ impl Countly {
     /// In some cases, you may also need to change user's device ID in a way, that server will merge data of both user IDs
     /// (existing and new ID you provided) on the server, eg when user used website without authenticating and have recorded
     /// some data, and then authenticated and you want to change ID to your internal id of this user, to keep tracking it across
-    /// multiple devices. To enable this, set [merge] to `true`.
+    /// multiple devices. To enable this, set `merge` to `true`.
     pub fn change_device_id(id: &str, merge: bool) {
         Self::queue().push(Array::of3(&JsValue::from_str("change_id"), &JsValue::from_str(id), &JsValue::from_bool(merge)).unchecked_ref());
     }
@@ -324,15 +324,15 @@ impl Countly {
         }
     }
 
-    /// By default (if `no_heart_beat` was false in [begin_session]) Countly SDK will extend session itself, but if you chose not
-    /// to, then you can extend is using this method and provide seconds since last call [begin_session] or [extend_session] call,
+    /// By default (if `no_heart_beat` was false in [Countly::begin_session]) Countly SDK will extend session itself, but if you chose not
+    /// to, then you can extend is using this method and provide seconds since last call [Countly::begin_session] or [Countly::extend_session] call,
     /// whatever was the last one.
     pub fn extend_session(secs: f64) {
         Self::queue().push(Array::of2(&JsValue::from_str("session_duration"), &JsValue::from_f64(secs)).unchecked_ref());
     }
 
     /// When visitor is leaving your app or website, you should end his session with this method, optionally providing amount of
-    /// seconds since last [begin_session] or [extend_session] calls, whatever was the last one.
+    /// seconds since last [Countly::begin_session] or [Countly::extend_session] calls, whatever was the last one.
     pub fn end_session(secs: Option<f64>) {
         if let Some(secs) = secs {
             Self::queue().push(Array::of2(&JsValue::from_str("end_session"), &JsValue::from_f64(secs)).unchecked_ref());
