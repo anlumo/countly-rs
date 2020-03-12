@@ -5,3 +5,7 @@ authors = ["Andreas Monitzer <andreas@monitzer.com>"]
 edition = "2018"
 
 [dependencies]
+wasm-bindgen = { version = "0.2", features = ["serde-serialize"] }
+js-sys = "0.3"
+serde = { version = "1.0", features = ["derive"] }
+web-sys = { version = "0.3", features = ["Element"] }
